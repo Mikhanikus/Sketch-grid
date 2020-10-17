@@ -8,8 +8,13 @@ let cell = document.querySelectorAll('.cell');
 
 button.addEventListener('click', function () {
     let a = prompt('Please specify the number of rows and columns');
-    container.textContent = '';
-    createGrid(a,a);
+    if (a > 100) {
+        alert ('The number should be less or equal to 100')
+    }
+    else {
+        container.textContent = '';
+        createGrid(a,a);
+    }
 });
 
 //Creates cells tagged 'div'
