@@ -38,7 +38,7 @@ function randomize (multiply) {
 }
 
 //Creates divs and sets color to each element
-function createCells (hue, bright, saturation) {
+function createCells (hue, saturation, bright) {
     let thisBright = bright;
     a = document.createElement('div');
     a.addEventListener('mouseenter', function () {
@@ -50,8 +50,6 @@ function createCells (hue, bright, saturation) {
         }
         event.target.setAttribute('style', `background-color: 
         hsl(${hue}, ${saturation}%, ${thisBright}%);`);
-
-
     });
     return a;
 }
