@@ -1,57 +1,78 @@
 //grid-template-columns: repeat(64, 1fr);
 //     grid-template-rows: repeat(64, 1fr) ;
 //assign the DOM container element to container variable
-let main = document.getElementById('main');
-let button = document.querySelector('button');
+let create = document.getElementById('create');
 let container = document.getElementById('container');
-let cell = document.querySelectorAll('.cell');
+let rainbow = document.getElementById('rainbow');
+let black = document.getElementById('black');
+let status = 'rainbow';
+let gridSize = 16;
 
-button.addEventListener('click', function () {
-    let a = prompt('Please specify the number of rows and columns');
-    if (a > 100) {
+// button that specifies the size of the grid
+create.addEventListener('click', function () {
+    gridSize = prompt('Please specify the number of rows and columns');
+    if (gridSize > 100) {
         alert ('The number should be less or equal to 100')
     }
     else {
         container.textContent = '';
-        createGrid(a,a);
+        createGrid(gridSize,gridSize,status);
     }
 });
+// changes to rainbow colors
+rainbow.addEventListener('click', function () {
+    status = 'rainbow';
+    container.textContent = '';
+    createGrid(gridSize,gridSize, 'rainbow');
+});
+// changes color to black and white
+black.addEventListener('click', function () {
+    status = 'black';
+    container.textContent = '';
+    createGrid(gridSize,gridSize, 'black');
+});
 
-//Creates cells tagged 'div'
-function createCells () {
+//get a random number
+function randomize (multiply) {
+    return Math.ceil(Math.random()*multiply);
+}
+
+//Creates divs and sets color to each element
+function createCells (hue, bright, saturation) {
+    let thisBright = bright;
     a = document.createElement('div');
-    a.setAttribute('class', 'cell');
-    let brigh = 60;
-    let hue = Math.ceil(Math.random()*360);
-    let satur = Math.ceil(Math.random()*100);
     a.addEventListener('mouseenter', function () {
+        if (thisBright > 0) {
+            thisBright -=10;
+        }
+        else {
 
-        brigh -=10;
+        }
         event.target.setAttribute('style', `background-color: 
-        hsl(${hue}, ${satur}%, ${brigh}%);`);
+        hsl(${hue}, ${saturation}%, ${thisBright}%);`);
 
 
     });
     return a;
 }
-//get a random number
-function randomizeNumber () {
-    return Math.ceil(Math.random()*360);
-}
-// Use hsl scheme
-// creates elements, the number is specified by "cells" and attaches to element.
-function populateGrid (cells) {
+// creates cells, the number is specified by "cells" and attaches to element.
+function populateGrid (cells, regime) {
     for (let i = 0; i<cells; i++) {
-        container.appendChild(createCells());
+        if (regime === 'rainbow') {
+            container.appendChild(createCells(randomize(360), randomize(100), 60));
+        }
+        if (regime === 'black') {
+            container.appendChild(createCells(randomize(360), randomize(100), 0));
+        }
     }
 
 }
 
 // creates a grid with specified number of rows and columns and populates it with cells rows*columns
-function createGrid (rows, columns) {
+function createGrid (rows, columns, regime) {
     container.setAttribute('style', `grid-template-columns: repeat(${columns}, 1fr); 
         grid-template-rows: repeat(${rows}, 1fr);`);
-    populateGrid(rows*columns, container)
+    populateGrid(rows*columns, regime)
 }
-
-createGrid(16,16);
+//create default layout
+createGrid(16,16, 'rainbow');
