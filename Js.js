@@ -1,7 +1,7 @@
 //grid-template-columns: repeat(64, 1fr);
 //     grid-template-rows: repeat(64, 1fr) ;
 //assign the DOM container element to container variable
-let create = document.getElementById('create');
+let create = document.querySelector('input');
 let container = document.getElementById('container');
 let rainbow = document.getElementById('rainbow');
 let black = document.getElementById('black');
@@ -9,17 +9,15 @@ let status = 'rainbow';
 let gridSize = 16;
 
 // button that specifies the size of the grid
-create.addEventListener('click', function () {
-    gridSize = prompt('Please specify the number of rows and columns');
-    if (gridSize > 100) {
-        alert ('The number should be less or equal to 100')
-    }
-    else {
+create.addEventListener('input', function () {
+        gridSize = create.value;
+        console.log(gridSize);
         container.textContent = '';
         createGrid(gridSize,gridSize,status);
-    }
+
 });
-// changes to rainbow colors
+
+// changes to rainbow
 rainbow.addEventListener('click', function () {
     status = 'rainbow';
     container.textContent = '';
