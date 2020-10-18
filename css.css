@@ -8,6 +8,7 @@ body {
     width: 600px;
     height: 600px;
     border: 3px dotted black;
+    background-color: white;
 
 }
 #container div {

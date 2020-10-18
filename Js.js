@@ -8,15 +8,16 @@ let black = document.getElementById('black');
 let status = 'rainbow';
 let gridSize = 16;
 
+                                                        //Event listeners
+
 // button that specifies the size of the grid
 create.addEventListener('input', function () {
-        gridSize = create.value;
-        console.log(gridSize);
-        container.textContent = '';
-        createGrid(gridSize,gridSize,status);
+    gridSize = create.value;
+    console.log(gridSize);
+    container.textContent = '';
+    createGrid(gridSize,gridSize,status);
 
 });
-
 // changes to rainbow
 rainbow.addEventListener('click', function () {
     status = 'rainbow';
@@ -29,7 +30,7 @@ black.addEventListener('click', function () {
     container.textContent = '';
     createGrid(gridSize,gridSize, 'black');
 });
-
+                                                        //Create a grid
 //get a random number
 function randomize (multiply) {
     return Math.ceil(Math.random()*multiply);
@@ -38,8 +39,8 @@ function randomize (multiply) {
 //Creates divs and sets color to each element
 function createCells (hue, saturation, bright) {
     let thisBright = bright;
-    a = document.createElement('div');
-    a.addEventListener('mouseenter', function () {
+    let temp = document.createElement('div');
+    temp.addEventListener('mouseenter', function () {
         if (thisBright > 0) {
             thisBright -=10;
         }
@@ -49,9 +50,9 @@ function createCells (hue, saturation, bright) {
         event.target.setAttribute('style', `background-color: 
         hsl(${hue}, ${saturation}%, ${thisBright}%);`);
     });
-    return a;
+    return temp;
 }
-// creates cells, the number is specified by "cells" and attaches to element.
+// creates cells, the number of cells is specified by "cells" and attaches to container.
 function populateGrid (cells, regime) {
     for (let i = 0; i<cells; i++) {
         if (regime === 'rainbow') {
