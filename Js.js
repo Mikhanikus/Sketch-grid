@@ -1,35 +1,40 @@
-//grid-template-columns: repeat(64, 1fr);
-//     grid-template-rows: repeat(64, 1fr) ;
-//assign the DOM container element to container variable
+                                                        //assign dom elements to vars
 let create = document.querySelector('input');
 let container = document.getElementById('container');
 let rainbow = document.getElementById('rainbow');
 let black = document.getElementById('black');
+
+//to store current grid values
 let status = 'rainbow';
 let gridSize = 16;
 
                                                         //Event listeners
 
-// button that specifies the size of the grid
+// slider that specifies the size of the grid
 create.addEventListener('input', function () {
+    // get current grid size
     gridSize = create.value;
-    console.log(gridSize);
+    //clear all the elements inside the container
     container.textContent = '';
+    //display grid with given values
     createGrid(gridSize,gridSize,status);
 
 });
 // changes to rainbow
 rainbow.addEventListener('click', function () {
     status = 'rainbow';
+    //clear all the elements inside the container
     container.textContent = '';
     createGrid(gridSize,gridSize, 'rainbow');
 });
 // changes color to black and white
 black.addEventListener('click', function () {
     status = 'black';
+    //clear all the elements inside the container
     container.textContent = '';
     createGrid(gridSize,gridSize, 'black');
 });
+
                                                         //Create a grid
 //get a random number
 function randomize (multiply) {
@@ -41,13 +46,14 @@ function createCells (hue, saturation, bright) {
     let thisBright = bright;
     let temp = document.createElement('div');
     temp.addEventListener('mouseenter', function () {
+        //to prevent brightness from going less than 0
         if (thisBright > 0) {
             thisBright -=10;
         }
         else {
 
         }
-        event.target.setAttribute('style', `background-color: 
+        this.setAttribute('style', `background-color: 
         hsl(${hue}, ${saturation}%, ${thisBright}%);`);
     });
     return temp;
@@ -71,5 +77,5 @@ function createGrid (rows, columns, regime) {
         grid-template-rows: repeat(${rows}, 1fr);`);
     populateGrid(rows*columns, regime)
 }
-//create default layout
-createGrid(16,16, 'rainbow');
+//display default layout
+createGrid(gridSize,gridSize, status);
